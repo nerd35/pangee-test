@@ -1,0 +1,25 @@
+.logo{
+    width: 153.77px ;
+    height: 44px;
+    object-fit: contain;
+}
+.bg-light{
+    background-color: #fff !important;
+}
+.nav-link {
+    font-family: 'Roboto',san-serif !important;
+    font-weight: 400 !important;
+    font-size: 14px !important;
+    line-height: 17px !important;
+    margin: 0 20px 0 0 !important;
+    color: #000 !important;
+}
+.cart-icon{
+    color: #000;
+    position: relative;
+    top: -5px !important;
+}
+.cart-count{
+    position: relative;
+    top: -6px !important;
+}

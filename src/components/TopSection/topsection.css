@@ -1,0 +1,33 @@
+.top-section {
+  padding: 64px 0 !important;
+}
+
+.top-section-container {
+  justify-content: space-between !important;
+}
+
+.product-title {
+  font-size: 48px;
+  line-height: 1.25em;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+}
+.product-text {
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+
+  font-weight: 400;
+}
+
+select {
+    height: 57px;
+    outline: none;
+    border: 1px solid #cdd1ce;
+    font-size: 1rem;
+    border-radius: none !important;
+  font-family: "Roboto", sans-serif;
+}
+select:focus{
+    outline: none !important;
+}
