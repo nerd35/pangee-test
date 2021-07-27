@@ -25,7 +25,7 @@ const ProductPage = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [cartItems, setCartItems] = useState([]);
   const [currency, setCurrency] = useState([]);
-  const [singlecur, setSinglecur] = useState("NGN")
+  const [singlecur, setSinglecur] = useState("USD")
   const [products, setProducts] = useState([])
   const { data, loading, error } = useQuery(QUERY_LIST_OF_PRODUCTS, {
     variables: {currency: singlecur}
@@ -49,7 +49,7 @@ const ProductPage = () => {
     if (exist) {
       setCartItems(
         cartItems.map((x) =>
-          x.id === cart?.id ? { ...exist, qty: exist.qty + 1} : x
+        x.id === cart?.id ? { ...exist, qty: exist.qty + 1} : x
         )
       );
     } else {
@@ -73,17 +73,15 @@ const ProductPage = () => {
 
   const getCarts = (carts) => {
      return carts.map(c => {
-      products.map(p => {
-        if(c.id === p.id ){
-          c.price = p.price
-
-        }
+      products.map((p) => {
+          if(c.id === p.id ){
+            c.price = p.price
+          }
       })
       return c
     })
   }
 
-const cartItemsId = cartItems.map(c => c.id);
 
   const getCurrency = (val) => {
 setSinglecur(val)
@@ -96,10 +94,11 @@ setSinglecur(val)
         onAddToCart={onAddToCart}
         cartItems={getCarts(cartItems)}
         isOpen={isOpen}
-        toggle={toggle}
+        setIsOpen={setIsOpen}
         currency={currency}
         getCurrency={getCurrency}
         singlecur={singlecur}
+        toggle={toggle}
       />
       <TopSection />
       <ProductGrid

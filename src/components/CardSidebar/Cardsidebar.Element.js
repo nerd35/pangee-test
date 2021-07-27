@@ -1,16 +1,26 @@
 import styled from "styled-components";
 import { FiArrowRightCircle } from "react-icons/fi";
 
+export const Background = styled.div`
+width: 100%;
+height: 100%;
+background: rgba(0, 0, 0, 0.8);
+position: fixed;
+display: flex;
+justify-content: right;
+`
+
 export const CardSidebarWrapper = styled.aside`
-  position: fixed;
+  position: relative;
   z-index: 999;
   width: 550px;
   height: 100%;
   background: #f2f2ef;
   padding: 15px;
   top: 0;
+  right: 0;
   transition: 0.3s ease-in-out;
-  right: ${({ isOpen }) => (isOpen ? "0" : "-1000px")};
+  right: ${({ isOpen }) => (isOpen ? "0" : "-1120px")};
   @media screen and (max-width: 400px) {
     width: 100%;
   }

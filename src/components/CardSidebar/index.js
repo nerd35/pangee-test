@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  Background,
   CardSidebarWrapper,
   CartTopContainer,
   CartTitle,
@@ -31,6 +32,7 @@ import {
 
 const CardSidebar = ({
   isOpen,
+  setIsOpen,
   toggle,
   cartItems,
   onAddToCart,
@@ -56,8 +58,12 @@ const CardSidebar = ({
 
 
   return (
-    <CardSidebarWrapper isOpen={isOpen}>
-      <CartTopContainer>
+    <>
+    {
+      isOpen ? (
+        <Background>
+    <CardSidebarWrapper >
+      <CartTopContainer setIsOpen={setIsOpen}>
         <CartIconDiv onClick={toggle}>
           <CartIconBack />
         </CartIconDiv>
@@ -140,12 +146,16 @@ const CardSidebar = ({
               }}
             >
               <div>SubTotal</div>
-              <div>{itemsPrice.toFixed(2)}</div>
+              <div>{singlecur} {itemsPrice.toFixed(2)}</div>
             </div>
           )}
         </div>
       </div>
     </CardSidebarWrapper>
+    </Background>
+      ) : null
+    }
+    </>
   );
 };
 
