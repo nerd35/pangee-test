@@ -1,10 +1,12 @@
-const INITIAL_DATA = {
-  cartHidden: true,
-  CartItem: [],
-  itemCount: 0,
-  CartTotal: 0
-}
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import App from "./App";
 
-export default INITIAL_DATA;
-
-
+ReactDOM.render(
+  <React.StrictMode>
+      <App />
+      
+  </React.StrictMode>,
+  document.getElementById("root")
+);
