@@ -1,24 +1,12 @@
 import React from "react";
-import { useQuery } from "@apollo/client";
 import "./productgrid.css";
 
-import { gql } from "@apollo/client";
 
 
-export const QUERY_LIST_OF_PRODUCTS = gql`
-  {
-    products {
-      id
-      title
-      image_url
-      price(currency: NGN)
-    }
-    
-  }
-`;
+const ProductGrid = ({ onAddToCart, singlecur, products, loading,error }) => {
+  
 
-const ProductGrid = ({ onAddToCart }) => {
-  const { data, loading, error } = useQuery(QUERY_LIST_OF_PRODUCTS);
+ 
   return (
     <div className="product-wrapper ">
       <div className="container">
@@ -29,8 +17,8 @@ const ProductGrid = ({ onAddToCart }) => {
             </h3>
           )}
           {error && <h3>{error.message}</h3>}
-          {data &&
-            data.products.map((product, key) => {
+          {products &&
+            products.map((product, key) => {
               return (
                 <div
                   key={key}
@@ -43,9 +31,10 @@ const ProductGrid = ({ onAddToCart }) => {
                   />
                   <h1 className="product-item-title">{product.title}</h1>
                   <p className="product-item-amount">
-                    from NGN {product.price}
+                    from {singlecur} {product.price}
                   </p>
                   <button
+                
                     onClick={() => onAddToCart(product)}
                     className=" product-item-btn"
                   >

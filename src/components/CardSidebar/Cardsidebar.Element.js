@@ -101,7 +101,7 @@ font-size: 13px;
 `
 
 export const CartItemAmout = styled.h4`
-te
+text-align: center;
     padding: 0 10px;
     width: inherit;
     font-size: 13px;

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   CardSidebarWrapper,
   CartTopContainer,
@@ -16,18 +16,18 @@ import {
 } from "./Cardsidebar.Element";
 
 
-import { gql, useQuery } from "@apollo/client";
+// import { gql, useQuery } from "@apollo/client";
 
-export const QUERY_LIST_OF_CURRENCY = gql`
-  {
-  __type(name: "Currency") {
-      name
-      enumValues {
-        name
-      }
-    }
-  }
-`;
+// export const QUERY_LIST_OF_CURRENCY = gql`
+//   {
+//   __type(name: "Currency") {
+//       name
+//       enumValues {
+//         name
+//       }
+//     }
+//   }
+// `;
 
 const CardSidebar = ({
   isOpen,
@@ -35,21 +35,24 @@ const CardSidebar = ({
   cartItems,
   onAddToCart,
   onRemoveFromCart,
+  currency,
+  getCurrency,
+  singlecur
 }) => {
 
   const itemsPrice = cartItems.reduce((a, c) => a + c.price * c.qty, 0);
-  const { data } = useQuery(QUERY_LIST_OF_CURRENCY);
-  const [currency, setCurrency] = useState([]);
+  // const { data } = useQuery(QUERY_LIST_OF_CURRENCY);
+  // const [currency, setCurrency] = useState([]);
 
   
-   useEffect(() => {
-     if(data){
-      setCurrency(data?.__type.enumValues)
-    }
-   }, [data])
+  //  useEffect(() => {
+  //    if(data){
+  //     setCurrency(data?.__type.enumValues)
+  //   }
+  //  }, [data])
   
 
- 
+  getCurrency(singlecur);
 
 
   return (
@@ -63,10 +66,12 @@ const CardSidebar = ({
       </CartTopContainer>
       <SelectDiv>
         <select
+        onChange={(e) => getCurrency(e.target.value)}
+        // value={value}
           style={{ width: "80px", border: "none", height: "40px" }}
         >
           {  currency.map(c => (
-            <option key={c.name} value={c.name}>{c.name}</option>
+            <option  key={c.name} value={c.name}>{c.name}</option>
           ))}
         </select>
       </SelectDiv>
@@ -108,7 +113,7 @@ const CardSidebar = ({
                 />
               </CartItemSection>
               <CartItemSection>
-                <CartItemAmout>{item.currency} {item.price.toFixed(2)}</CartItemAmout>
+                <CartItemAmout>{singlecur} {(item.price * item.qty).toFixed(2)}</CartItemAmout>
               </CartItemSection>
             </CartItemWrapper>
           </CartListContainer>

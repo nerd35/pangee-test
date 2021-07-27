@@ -1,9 +1,44 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { CardSidebar, ProductGrid, TopNav, TopSection } from "../../components";
+
+import { gql, useQuery } from "@apollo/client";
+
+export const QUERY_LIST_OF_PRODUCTS = gql`
+query($currency: Currency){
+    products {
+      id
+      title
+      image_url
+      price(currency: $currency)
+    }
+    
+  __type(name: "Currency") {
+      name
+      enumValues {
+        name
+      }
+    }
+  }
+`;
 
 const ProductPage = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [cartItems, setCartItems] = useState([]);
+  const [currency, setCurrency] = useState([]);
+  const [singlecur, setSinglecur] = useState("NGN")
+  const [products, setProducts] = useState([])
+  const { data, loading, error } = useQuery(QUERY_LIST_OF_PRODUCTS, {
+    variables: {currency: singlecur}
+  });
+
+  
+   useEffect(() => {
+     if(data){
+      setProducts(data?.products)
+      setCurrency(data?.__type.enumValues)
+
+    }
+   }, [data])
 
   const toggle = () => {
     setIsOpen(!isOpen);
@@ -35,20 +70,45 @@ const ProductPage = () => {
       );
     }
   };
+
+  const getCarts = (carts) => {
+     return carts.map(c => {
+      products.map(p => {
+        if(c.id === p.id ){
+          c.price = p.price
+
+        }
+      })
+      return c
+    })
+  }
+
+const cartItemsId = cartItems.map(c => c.id);
+
+  const getCurrency = (val) => {
+setSinglecur(val)
+  }
   return (
     <div>
       <TopNav toggle={toggle} countCartItems={cartItems.length} />
       <CardSidebar
-      onRemoveFromCart={onRemoveFromCart}
+        onRemoveFromCart={onRemoveFromCart}
         onAddToCart={onAddToCart}
-        cartItems={cartItems}
+        cartItems={getCarts(cartItems)}
         isOpen={isOpen}
         toggle={toggle}
+        currency={currency}
+        getCurrency={getCurrency}
+        singlecur={singlecur}
       />
       <TopSection />
       <ProductGrid
         onAddToCart={onAddToCart}
         toggle={toggle}
+        singlecur={singlecur}
+        products={products}
+        loading={loading}
+        error={error}
       />
     </div>
   );
